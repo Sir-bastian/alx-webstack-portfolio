@@ -1,7 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
-const logger = require('express-handlebars')
+const exphbs = require('express-handlebars')
 const connectDB = require('./config/db.js')
 
 
@@ -19,14 +19,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //Handlebars
-app.engine('.hbs', engine({ defaultLayout: 'main.hbs', extname: '.hbs' }));
-app.set('view engine', '.hbs');
-app.set('views', './views');
+app.engine('.hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
+app.set('view engine', '.hbs')
 
-const PORT =process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 
 app.listen(
 	PORT,
-	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
