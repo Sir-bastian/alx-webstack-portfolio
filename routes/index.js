@@ -6,7 +6,7 @@ const router = express.Router()
 //@route    GET /
 router.get('/', (req, res) => {
     console.log('Landing Page route hit');
-    res.send('TransitNET');
+    res.render('login');
 });
 
 
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 //@route    GET /dashboard
 router.get('/dashboard', (req, res) => {
     console.log('Dashboard route hit');
-    res.send('Dashboard');
+    res.render('dashboard');
 });
 
 module.exports = router;
