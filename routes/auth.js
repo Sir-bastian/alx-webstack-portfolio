@@ -15,7 +15,7 @@ router.get('/auth/google',
 //@desc     Google auth callback
 //@route    GET /auth/google/callback
 router.get('/auth/google/callback',
-    passpot.authenticate('google', { failureRedirect: '/'} ),
+    passport.authenticate('google', { failureRedirect: '/'} ),
     (req, res) =>{
         res.redirect('/dashboard'); 
     }

@@ -1,19 +1,18 @@
-const path = require('path')
-const express = require('express')
-const dotenv = require('dotenv')
-const morgan = require('morgan')
-const exphbs = require('express-handlebars')
-const passport = require('passport')
-const sess = require('express-session')
-const connectDB = require('./config/db.js')
-const indexRouter = require('./routes/index.js')
-const session = require('express-session')
+const path = require('path');
+const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const exphbs = require('express-handlebars');
+const passport = require('passport');
+const sess = require('express-session');
+const connectDB = require('./config/db.js');
+const session = require('express-session');
 
 //Load config
 dotenv.config({ path: './config/config.env' });
 
-//Paspport config
-require('./config/passport')(passport)
+//Passport config
+require('./config/passport')(passport);
 
 //Database connection
 connectDB();
@@ -44,7 +43,8 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')))
 
 //Routes
-app.use('/', indexRouter);
+app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'))
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
