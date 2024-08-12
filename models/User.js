@@ -24,7 +24,7 @@ const carrierSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    displayNameame: {
+    displayName: {
         type: String,
         required: true,
         unique: true,
