@@ -7,7 +7,8 @@ const exphbs = require('express-handlebars');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')
-const connectDB = require('./config/db.js');
+const connectDB = require('./config/db');
+const bodyParser = require('body-parser');
 
 //Load config
 dotenv.config({ path: './config/config.env' });
@@ -37,6 +38,10 @@ app.use(session({
 app.engine('.hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
+//Parse Json request bodies middleware URL-encoded request bvodies0
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //Passwport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,7 +51,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //Routes
 app.use('/', require('./routes/index'));
-app.use('/auth', require('./routes/auth'))
+app.use('/auth', require('./routes/auth'));
+app.use('/register', require('./routes/index'));
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);

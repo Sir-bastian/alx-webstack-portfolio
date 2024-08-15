@@ -1,6 +1,6 @@
-const express = require('express')
-const passport = require('passport')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 
 
 /**
@@ -34,8 +34,5 @@ router.get('/logout', (req, res, next) => {
         res.redirect('/');
     });
 });
-
-
-
 
 module.exports = router;

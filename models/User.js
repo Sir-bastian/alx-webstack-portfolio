@@ -1,7 +1,7 @@
 /**
  * User model
  * 
- */
+*/
 const mongoose = require('mongoose');
 
 //User schema or Blueprint
@@ -10,19 +10,34 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    username:{
-        type: String,
-        required: true,
-        unique: true
-    },
     firstName: {
         type: String,
+        min: 2,
+        max: 100,
         required: true,
-        unique: true
     },
     lastName: {
         type: String,
+        min: 2,
+        max: 100,
         required: true
+    },
+    email: {
+        type: String,
+        rquired: true,
+        unique: true,
+        validate: {
+            validator: function (value) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            },
+            message: 'Invalid email addrress format',
+        },
+    },
+    password: {
+        type: String,
+        min: 8,
+        max: 30,
+        required: true,
     },
     image: {
         type: String,
@@ -33,5 +48,6 @@ const UserSchema = mongoose.Schema({
     },
 });
 
-//Creation of the User model from the schema
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;
