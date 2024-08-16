@@ -26,17 +26,16 @@ const UserSchema = mongoose.Schema({
         type: String,
         rquired: true,
         unique: true,
-        validate: {
-            validator: function (value) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            },
-            message: 'Invalid email addrress format',
-        },
     },
     password: {
         type: String,
         min: 8,
         max: 30,
+        required: true,
+    },
+    role:{
+        type: String,
+        enum: ['carrier', 'shipper'],
         required: true,
     },
     image: {

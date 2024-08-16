@@ -1,0 +1,52 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2 l6 offset-l3">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title center-align">Complete Your Profile</span>
+                        <form action="/profilesetup" method="POST">
+                            <input type="hidden" name="userId" value="{{ userId }}">
+                            <div class="input-field">
+                                <i class="fas fa-user-circle prefix"></i>
+                                <select name="role" id="role" onchange="showFields()">
+                                    <option value="" disabled selected>Choose Your Role</option>
+                                    <option value="shipper">Shipper</option>
+                                    <option value="carrier">Carrier</option>
+                                </select>
+                                <label for="role">Role</label>
+                            </div>
+                            <div id="shipper-fields" style="display: none;">
+                                <div class="input-field">
+                                    <i class="fas fa-warehouse prefix"></i>
+                                    <input id="companyName" type="text" name="companyName">
+                                    <label for="companyName">Company Name</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="fas fa-map-marker-alt prefix"></i>
+                                    <input id="pickupLocation" type="text" name="pickupLocation">
+                                    <label for="pickupLocation">Pickup Location</label>
+                                </div>
+                            </div>
+                            <div id="carrier-fields" style="display: none;">
+                                <div class="input-field">
+                                    <i class="fas fa-truck prefix"></i>
+                                    <input id="vehicleType" type="text" name="vehicleType">
+                                    <label for="vehicleType">Vehicle Type</label>
+                                </div>
+                                <div class="input-field">
+                                    <i class="fas fa-id-badge prefix"></i>
+                                    <input id="licenseNumber" type="text" name="licenseNumber">
+                                    <label for="licenseNumber">License Number</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn waves-effect waves-light">
+                                <i class="fas fa-save left"></i> Save
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

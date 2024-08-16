@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 //Routes
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-app.use('/register', require('./routes/index'));
+app.use('/profilesetup', require('./routes/index'));
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-
+const User = require('../models/User');
+const Shipper = require('../models/shippers');
+const Carrier = require('../models/Carriers');
 
 /**
  * @desc     Google Authentication
@@ -16,8 +18,17 @@ router.get('/google',
  */
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/login'} ),
-    (req, res) => {
-        res.redirect('/dashboard')
+    async (req, res) => {
+        const user = req.user; //User object from Passport
+        req.session.userId = user._id; // Store user ID in Session
+        //check if user has a profile
+        const hasProfile = await Shipper.findOne({ googleId: user.googleId }) || 
+        await Carrier.findOne({ googleId: user.googleId });
+        if(!hasProfile) {
+            res.redirect('/profilesetup');
+        } else {
+            res.redirect('/dashboard');
+        }
     }
 )
 
