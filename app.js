@@ -13,14 +13,16 @@ const bodyParser = require('body-parser');
 //Load config
 dotenv.config({ path: './config/config.env' });
 
-//Passport config
-require('./config/passport')(passport);
-
 //Database connection
 connectDB();
 
 //initialization of express app
 const app = express();
+
+//Parse Json request bodies middleware URL-encoded request bvodies0
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 if (process.env.NODE_ENV === 'development') { 
 	app.use(morgan('dev'));
@@ -38,21 +40,12 @@ app.use(session({
 app.engine('.hbs', exphbs.engine({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-//Parse Json request bodies middleware URL-encoded request bvodies0
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 //Passwport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
 //Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
-
-//Routes
-app.use('/', require('./routes/index'));
-app.use('/auth', require('./routes/auth'));
-app.use('/profilesetup', require('./routes/index'));
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
