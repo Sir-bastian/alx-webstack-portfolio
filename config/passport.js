@@ -1,6 +1,7 @@
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const flash = require('express-flash');
 
 module.exports = function (passport) {
     passport.use(

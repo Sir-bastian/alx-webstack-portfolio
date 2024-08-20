@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')
+const MongoStore = require('connect-mongo');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 
@@ -52,12 +52,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Routes
 app.use('/', require('./routes/auth'));
+app.use('/logout', require('./routes/auth'));
+
+// End Routes
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500).send('Something went wrong!');
 });
-
 
 const PORT = process.env.PORT || 3000;
 
