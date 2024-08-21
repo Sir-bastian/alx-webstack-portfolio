@@ -3,7 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const passport = require('passport');
+const moment = require('moment');
 const { ensureAuth, checkLoggedIn } = require('../middlewares/authentication');
+const { getUserPosts, getOtherUsersPosts } = require('../middlewares/getPosts');
 
 // Post functiion handling all registration requests.
 router.post('/register', checkLoggedIn, async (req, res) => {
@@ -34,18 +36,27 @@ router.post('/login', checkLoggedIn, passport.authenticate('local', {
 
 
 // Route to Home Page
-router.get('/', ensureAuth, (req, res) => {
-    res.render('index.ejs', { name: req.user.fullName});
+router.get('/', ensureAuth, async (req, res) => {
+    const user = req.user; //Logged-in user 
+    const userPosts = getUserPosts(user.id); //Function to get user's Posts
+    const otherPosts = getOtherUsersPosts(user.id);
+
+    res.render('index', { 
+        name: req.user.fullName,
+        userPosts: userPosts,
+        otherPosts: otherPosts,
+        formatDate: (date, format) => moment(date).format(format) //Using moment.js for date formatting
+    });
 });
 
 //Login route
 router.get('/login', checkLoggedIn ,(req, res) => {
-    res.render('login.ejs');
+    res.render('login');
 });
 
 //Account Registration Page
 router.get('/register', checkLoggedIn, (req, res) => {
-    res.render('register.ejs');
+    res.render('register');
 });
 
 

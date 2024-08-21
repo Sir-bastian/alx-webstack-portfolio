@@ -21,9 +21,13 @@ connectDB();
 //initialization of express app
 const app = express();
 
-//Parse Json request bodies middleware URL-encoded request bvodies0
+//Parse Json request bodies middleware URL-encoded request bodies
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.raw({ type: 'application/octet-stream' }));
+app.use(bodyParser.text({ type: 'text/plain' }));
+app.use(bodyParser.json({ type: 'application/json' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb', type: 'application/x-www-form-urlencoded' }));
 
 //Logging
 if (process.env.NODE_ENV === 'development') { 
@@ -53,7 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Routes
 app.use('/', require('./routes/auth'));
 app.use('/logout', require('./routes/auth'));
-
+app.use('/posts', require('./routes/shippingPost'));
 // End Routes
 
 app.use((err, req, res, next) => {

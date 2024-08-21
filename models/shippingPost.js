@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const shippingPostSchema = mongoose.Schema({
     title: {
         type: String,
-        require: true,
+        required: true,
     },
     description: {
         type: String,
@@ -18,12 +18,12 @@ const shippingPostSchema = mongoose.Schema({
         required: true,
     },
     pickupDate: { // when the shipment needs to be picked up
-        type: String,
-        require: true,
+        type: Date,
+        required: true,
     },
     contactInfo: {
         type: String,
-        require: true,
+        required: true,
     },
     category: { // e.g. Furniture, electronics, documents.
         type: String,
@@ -39,7 +39,9 @@ const shippingPostSchema = mongoose.Schema({
     },
     Image: {
         type: String,
-    }
+    },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdAt: { type: Date, default: Date.now }
 
 });
 
