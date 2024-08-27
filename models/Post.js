@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const shippingPostSchema = mongoose.Schema({
+const PostSchema = mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -11,15 +11,13 @@ const shippingPostSchema = mongoose.Schema({
     },
     pickupLocation: {
         type: String,
-        required: true,
     },
     deliveryLocation: {
         type: String,
-        required: true,
+
     },
     pickupDate: { // when the shipment needs to be picked up
         type: Date,
-        required: true,
     },
     contactInfo: {
         type: String,
@@ -31,7 +29,23 @@ const shippingPostSchema = mongoose.Schema({
     },
     sizeAndWeight: {
         type: String,
+    },
+    contactInfo: {
+        type: String,
         required: true,
+    },
+    category: { // e.g. Furniture, electronics, documents.
+        type: String,
+    },
+    vehicleTypeAndCapacity: {
+        type: String,
+    },
+    pricing: {
+        type: String,
+        required: true,
+    },
+    availablity: {
+        type: String,
     },
     termsAndConditions: {
         type: String,
@@ -45,6 +59,6 @@ const shippingPostSchema = mongoose.Schema({
 
 });
 
-const shippingPost = mongoose.model('shippingPost', shippingPostSchema);
+const Post = mongoose.model('Post', PostSchema);
 
-module.exports = shippingPost;
+module.exports = Post;

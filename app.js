@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Routes
 app.use('/', require('./routes/auth'));
 app.use('/logout', require('./routes/auth'));
-app.use('/posts', require('./routes/shippingPost'));
+app.use('/posts', require('./routes/Post'));
 // End Routes
 
 app.use((err, req, res, next) => {

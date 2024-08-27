@@ -5,7 +5,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const shippingPost = require('../models/shippingPost');
+const Post = require('../models/Post');
 const { ensureAuth } = require('../middlewares/authentication');
 
 // @desc  process add form to create a post

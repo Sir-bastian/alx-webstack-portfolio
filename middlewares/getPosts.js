@@ -1,5 +1,4 @@
-const carrierPost= require('../models/carrierPost');
-const shippingPost = require('../models/shippingPost');
+const Post = require('../models/Post');
 
 /**
  * Function that get Users Post
@@ -7,9 +6,8 @@ const shippingPost = require('../models/shippingPost');
  */
 const getUserPosts = async (userId) => {
     try {
-        const shippingPosts = await shippingPost.find({ author: userId });
-        const carrierPosts = await carrierPost.find({ author: userId });
-        return { shippingPosts, carrierPosts };
+        const UserPosts = await Post.find({ author: userId });
+        return UserPosts
     } catch (error) {
         console.error("Error fetching user posts:", error);
         throw error;
@@ -19,9 +17,8 @@ const getUserPosts = async (userId) => {
 // function that get other Users Posts.
 const getOtherUsersPosts = async (userId) => {
     try {
-        const otherShippingPosts = await shippingPost.find({ author: { $ne: userId } });
-        const otherCarrierPosts = await carrierPost.find({ author: { $ne: userId } });
-        return { otherShippingPosts, otherCarrierPosts };
+        const OtherPosts = await Post.find({ author: { $ne: userId } });
+        return OtherPosts
     } catch (error) {
         console.error("Error fetching other users' posts:", error);
         throw error;
