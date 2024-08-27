@@ -30,13 +30,6 @@ const PostSchema = mongoose.Schema({
     sizeAndWeight: {
         type: String,
     },
-    contactInfo: {
-        type: String,
-        required: true,
-    },
-    category: { // e.g. Furniture, electronics, documents.
-        type: String,
-    },
     vehicleTypeAndCapacity: {
         type: String,
     },
