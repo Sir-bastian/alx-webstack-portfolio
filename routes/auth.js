@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const passport = require('passport');
 const moment = require('moment');
+const Post = require('../models/Post')
 const { ensureAuth, checkLoggedIn } = require('../middlewares/authentication');
 const { getUserPosts, getOtherUsersPosts } = require('../middlewares/getPosts');
 
@@ -37,16 +38,17 @@ router.post('/login', checkLoggedIn, passport.authenticate('local', {
 
 // Route to Home Page
 router.get('/', ensureAuth, async (req, res) => {
-    const user = req.user; //Logged-in user 
-    const userPosts = getUserPosts(user.id); //Function to get user's Posts
-    const otherPosts = getOtherUsersPosts(user.id);
-
-    res.render('index', { 
-        name: req.user.fullName,
-        userPosts: userPosts,
-        otherPosts: otherPosts,
-        formatDate: (date, format) => moment(date).format(format) //Using moment.js for date formatting
-    });
+    try {
+        const posts = await Post.find({ user: req.user.id }).lean();
+        res.render('index', { 
+            name: req.user.fullName,
+            formatDate: (date, format) => moment(date).format(format), //Using moment.js for date formatting
+            posts
+        });
+    } catch (error) {
+        console.error(error);
+        res.render('error/500');
+    }
 });
 
 //Login route
